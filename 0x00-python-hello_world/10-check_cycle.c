@@ -1,26 +1,32 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "lists.h"
-
 /**
- * check_cycle - function checks if a singly linked list has a cycle
- * @list: pointer to the beginning of the node
- * Return: 0 if no cycle, 1 if there is a cycle
+ * check_cycle - check list
+ * @list: list
+ * Return: 1 or  0.
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *current, *check;
+	listint_t *iter1;
+	listint_t *iter2;
 
-	if (list == NULL || list->next == NULL)
-		return (0);
-	current = list;
-	check = current->next;
-
-	while (current != NULL && check->next != NULL
-			&& check->next->next != NULL)
+	iter1 = list;
+	iter2 = list;
+	if (list == NULL)
 	{
-		if (current == check)
+		return (0);
+	}
+	iter2 = iter2->next;
+	while (iter2 != NULL && iter2->next != NULL && iter1 != NULL)
+	{
+		if (iter1 == iter2)
+		{
 			return (1);
-		current = current->next;
-		check = check->next->next;
+		}
+		iter1 = iter1->next;
+		iter2 = iter2->next->next;
 	}
 	return (0);
 }
